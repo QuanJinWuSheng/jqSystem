@@ -1,2 +1,6 @@
 rootProject.name = 'jqsystem'
+include 'swagger2_config'
+include 'jpa_dao_bs'
+include 'mysql_generator_code'
+include 'jq_exceptions'
 

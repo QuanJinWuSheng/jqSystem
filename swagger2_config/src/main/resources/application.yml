@@ -1,0 +1,11 @@
+#swagger.enable swagger的启用状态
+swagger:
+  package: com.jqs.*.*
+  production: false
+  basic:
+    enable: true
+    username: admin
+    password: 123456
+
+
+

@@ -1,0 +1,6 @@
+#集成mybatis扫描加载*Mapper.xml
+mybatis:
+  mapper-locations: classpath:mybatis/*/*.xml
+
+
+

@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+group 'com.jqs'
+version '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "http://172.16.29.131:8081/repository/maven-central/" }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+//打包源码
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+bootJar { enabled = false }
+jar { enabled = true }
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+            groupId 'com.jqs'
+            artifactId 'jq-exceptions'
+            version '1.0.0-SNAPSHOT'
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+
+            //配置上传源码
+            artifact sourceJar {
+                classifier "sources"
+            }
+
+        }
+    }
+    repositories {
+        maven {
+            //指定要上传的maven私服仓库
+            url = "http://172.16.29.131:8081/maven/content/repositories/myparty/"
+            //认证用户和密码
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+        }
+    }
+}
